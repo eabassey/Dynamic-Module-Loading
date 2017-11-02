@@ -1,13 +1,10 @@
 import { Actions, Effect } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as fromApp from './actions';
-import { AppComponent } from './app.component';
+import * as fromApp from './_loader.actions';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { ModuleLoaderService } from './module-loader.service';
-import { LoadDyamicModule } from './actions';
+import { LoadDyamicModule } from './_loader.actions';
 
 @Injectable()
 export class ModulesEffect {

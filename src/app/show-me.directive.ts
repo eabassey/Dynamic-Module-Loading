@@ -1,15 +1,15 @@
 import { Directive, ViewContainerRef } from '@angular/core';
+import { GenericHostDirective } from './dynamic-loader-lib/generic-host.directive';
 
 
-export class GenericHostDirective {
-    constructor(public viewContainerRef: ViewContainerRef){ }
-}
+
+
     
 
 @Directive({
     selector: '[show-me]'
 })
-export class DynamicDirective implements GenericHostDirective {
+export class ShowMeDirective implements GenericHostDirective {
     constructor(public viewContainerRef: ViewContainerRef){ }
 }
     

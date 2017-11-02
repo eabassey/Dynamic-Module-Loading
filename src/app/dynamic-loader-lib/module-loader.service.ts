@@ -1,23 +1,17 @@
 import { Injectable, Compiler, ViewChild, Directive } from '@angular/core';
-import { DynamicDirective, GenericHostDirective } from './dynamic.directive';
-import { OneModule } from './one/one.module';
-import { TwoModule } from './two/two.module';
-import { State } from './reducers';
+import { ModuleLoaderState } from './_loader.reducer';
 import { Store } from '@ngrx/store';
+import { GenericHostDirective } from './generic-host.directive';
 
 
 @Injectable()
 export class ModuleLoaderService {
 
-   // @ViewChild(DynamicDirective) host: DynamicDirective;
-    
-    // modulesToLoad: any = {
-    //     'oneModule': OneModule,
-    //     'twoModule': TwoModule
-    //   };
-    constructor(private compiler: Compiler, private store: Store<State>){}
 
-
+    constructor(
+              private compiler: Compiler, 
+              private store: Store<ModuleLoaderState>
+              ){}
 
     loadModule(module: any, host: GenericHostDirective) {
         //get reference to the factory for creating module with its components
@@ -41,8 +35,4 @@ export class ModuleLoaderService {
           })
         });
       }
-
-    // dispatchModuleDynamically<T>(module, host) {
-    //     this.store.dispatch(new(): T)
-    // }
 }

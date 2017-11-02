@@ -1,14 +1,15 @@
-import { Component, NgModuleRef, Compiler, Injector, ComponentFactory, ViewContainerRef, ViewChild, NgModule } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { OneModule } from './one/one.module';
-import { DynamicDirective } from './dynamic.directive';
 import { BaseTwoComponent } from './two/base-two.component';
 import { TwoModule } from './two/two.module';
-//import { State } from './reducers';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/map';
-import * as fromApp from './reducers';
-import * as moduleActions from './actions';
+import * as fromModuleLoader from './dynamic-loader-lib/_loader.reducer';
+import * as moduleActions from './dynamic-loader-lib/_loader.actions';
+import { ShowMeDirective } from './show-me.directive';
+import { TalkDirective } from './talk.directive';
+import { ModulePayload } from './dynamic-loader-lib/module-payload.model';
 
 
 @Component({
@@ -19,21 +20,27 @@ import * as moduleActions from './actions';
 export class AppComponent {
 
   
-   @ViewChild(DynamicDirective) host: DynamicDirective;
+   @ViewChild(ShowMeDirective) host: ShowMeDirective;
+
+   @ViewChild(TalkDirective) talkHost: TalkDirective;
 
   constructor(
-          private compiler: Compiler, 
-          private store: Store<fromApp.State>
+          private store: Store<fromModuleLoader.ModuleLoaderState>
         ){}
   
 
   loadOne() {
-   this.store.dispatch(new moduleActions.LoadDyamicModule({module: OneModule, host: this.host}));
+   this.store.dispatch(new moduleActions.LoadDyamicModule({module: TwoModule, host: this.host}));
+   this.store.dispatch(new moduleActions.LoadDyamicModule({module: OneModule, host: this.talkHost}));
   }
 
   loadTwo() {
-    this.store.dispatch(new moduleActions.LoadDyamicModule({module: TwoModule, host: this.host}));
+    this.store.dispatch(new moduleActions.LoadDyamicModule({module: OneModule, host: this.host}));
+    this.store.dispatch(new moduleActions.LoadDyamicModule({module: TwoModule, host: this.talkHost}));
   }
+
+
+  
 
 }
 

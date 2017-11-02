@@ -4,12 +4,15 @@ import { StoreModule } from '@ngrx/store';
 import{ EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
-import { OneModule } from './one/one.module';
-import { TwoModule } from './two/two.module';
-import { DynamicDirective } from './dynamic.directive';
-import * as fromApp from './reducers';
-import { ModulesEffect } from './effects';
-import { ModuleLoaderService } from './module-loader.service';
+import {dynamicModuleReducer} from './dynamic-loader-lib/_loader.reducer';
+import { ModuleLoaderService } from './dynamic-loader-lib/module-loader.service';
+import { ModulesEffect } from './dynamic-loader-lib/_loader.effects';
+import { DynamicLoaderModule } from './dynamic-loader-lib/dynamic-loader.module';
+import { ShowMeDirective } from './show-me.directive';
+import { TalkDirective } from './talk.directive';
+
+
+
 
 
 
@@ -17,12 +20,14 @@ import { ModuleLoaderService } from './module-loader.service';
 @NgModule({
   declarations: [
     AppComponent,
-    DynamicDirective
+    ShowMeDirective,
+    TalkDirective
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(fromApp.dynamicModuleReducers),
-    EffectsModule.forRoot([ModulesEffect])
+    StoreModule.forRoot(dynamicModuleReducer), 
+    EffectsModule.forRoot([ModulesEffect]),
+   DynamicLoaderModule
   ],
   providers: [ModuleLoaderService],
   bootstrap: [AppComponent]
