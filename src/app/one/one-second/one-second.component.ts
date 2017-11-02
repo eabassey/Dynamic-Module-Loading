@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseComponent } from '../../BaseComponent';
+import { Component } from '@angular/core';
+
 import { BaseOneComponent } from '../base-one.component';
 
 @Component({
@@ -7,13 +7,6 @@ import { BaseOneComponent } from '../base-one.component';
   templateUrl: './one-second.component.html',
   styleUrls: ['./one-second.component.css']
 })
-export class OneSecondComponent extends BaseComponent implements OnInit {
+export class OneSecondComponent {
 
-  constructor() {
-    super();
-   }
-
-  ngOnInit() {
-  }
-
-}
+ }

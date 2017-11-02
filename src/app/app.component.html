@@ -10,9 +10,16 @@
   </p>
 </div> -->
 
-<div *ngFor="let module of moduleArray">
+<!-- <div *ngFor="let module of moduleArray">
   <button (click)="loadModule(module.module)">{{module.name}}</button>
-</div>
+</div> -->
 
+
+
+
+<div>
+  <button (click)="loadOne()">Load One</button>
+  <button (click)="loadTwo()">Load Two</button>
+</div>
 
 <ng-template show-me></ng-template>

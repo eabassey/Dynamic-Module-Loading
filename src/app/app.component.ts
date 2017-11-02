@@ -1,13 +1,15 @@
 import { Component, NgModuleRef, Compiler, Injector, ComponentFactory, ViewContainerRef, ViewChild, NgModule } from '@angular/core';
 import { OneModule } from './one/one.module';
-import { BaseComponent } from './BaseComponent';
 import { DynamicDirective } from './dynamic.directive';
 import { BaseTwoComponent } from './two/base-two.component';
 import { TwoModule } from './two/two.module';
-import { State } from './reducers';
+//import { State } from './reducers';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/map';
+import * as fromApp from './reducers';
+import * as moduleActions from './actions';
+
 
 @Component({
   selector: 'app-root',
@@ -16,47 +18,23 @@ import 'rxjs/add/operator/map';
 })
 export class AppComponent {
 
-
-  
-  moduleArray = [
-    { name: 'Load One', module: OneModule },
-    { name: 'Load two', module: TwoModule }
-  ]
   
    @ViewChild(DynamicDirective) host: DynamicDirective;
 
-  constructor(private compiler: Compiler){}
+  constructor(
+          private compiler: Compiler, 
+          private store: Store<fromApp.State>
+        ){}
+  
 
-  loadModule(module: any) {
-    //get reference to the factory for creating module with its components
-    const moduleWithComponentFactories = this.compiler.compileModuleAndAllComponentsAsync(module);
-
-    //access the factory (can get either component or module factory)
-    moduleWithComponentFactories.then(factory => {
-
-      //access component factory
-       const componentFactories = factory.componentFactories;
-       
-       //reference viewContainerRef of directive
-       const viewContainerRef = this.host.viewContainerRef;
-       
-      //clear existing components
-       viewContainerRef.clear();
-
-       //loop through each component factory to create components
-        componentFactories.forEach(factory => {
-        viewContainerRef.createComponent(factory);
-      })
-    });
-  }
-
-  /// For store
   loadOne() {
-   
+   this.store.dispatch(new moduleActions.LoadDyamicModule({module: OneModule, host: this.host}));
   }
 
   loadTwo() {
-
+    this.store.dispatch(new moduleActions.LoadDyamicModule({module: TwoModule, host: this.host}));
   }
 
 }
+
+

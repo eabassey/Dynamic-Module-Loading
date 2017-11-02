@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { TwoFirstComponent } from './two-first/two-first.component';
 import { TwoSecondComponent } from './two-second/two-second.component';
+import { BaseDynamicModule } from '../base-dynamic.module';
 
 @NgModule({
     declarations: [TwoFirstComponent, TwoSecondComponent],
-    imports: [],
-    //entryComponents: [TwoFirstComponent, TwoSecondComponent]
+    imports: []
 })
-export class TwoModule {
+export class TwoModule implements BaseDynamicModule{
 
 }

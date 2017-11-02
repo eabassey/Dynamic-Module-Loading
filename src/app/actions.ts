@@ -1,21 +1,17 @@
-import { Action } from "@ngrx/store";
+import { Action } from '@ngrx/store';
+import { NgModule } from '@angular/core';
+import { GenericHostDirective } from './dynamic.directive';
+import { BaseDynamicModule } from './base-dynamic.module';
+
+
+export const LOAD_DYNAMIC_MODULE = 'Load Dynamic Module';
 
 
 
-export const LOAD_ONE = '[Module] Load One';
-export const LOAD_TWO = '[Module] Load Two';
 
-
-export class LoadOne implements Action {
-    readonly type = LOAD_ONE;
-    constructor(public payload: { name: string, module: any }){}
+export class LoadDyamicModule implements Action {
+    readonly type: string = LOAD_DYNAMIC_MODULE ;
+    constructor(public payload: {module: BaseDynamicModule, host: GenericHostDirective}){}
 }
 
-export class LoadTwo implements Action {
-    readonly type = LOAD_TWO;
-    constructor(public payload: { name: string, module: any }){}
-}
 
-
-
-export type Actions = LoadOne | LoadTwo;

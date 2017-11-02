@@ -1,26 +1,26 @@
-import * as ModuleActions from './actions';
+import * as fromApp from './actions';
+import { OneModule } from './one/one.module';
+import { NgModule } from '@angular/core';
+import { BaseDynamicModule } from './base-dynamic.module';
 
 export interface State {
-    name: string;
-    module: any;
+ module: BaseDynamicModule;
+ host: any;
+}
+
+
+export const dynamicModuleReducers = {
+ mod: reducer
 }
 
 const initialState: State = {
-    name: 'Waiting...',
-    module: null
+    module: null,
+    host: null
 }
 
 
-export function reducer(state = initialState, action: ModuleActions.Actions) {
-    switch(action.type) {
-        
-        case ModuleActions.LOAD_ONE: {
-            return {...state, name: action.payload.name, module: action.payload.module }
-        }
-        
-        case ModuleActions.LOAD_TWO: {
-            return {...state, name: action.payload.name, module: action.payload.module }
-        }
+export function reducer (state: State = initialState, action: fromApp.LoadDyamicModule): State {
+    switch (action.type) {
 
         default:
         return state;
